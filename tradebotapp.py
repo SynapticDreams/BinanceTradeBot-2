@@ -81,7 +81,7 @@ def notify_getter():
                         decimal_place -= 1
 
             if ex.code == -1013:
-                send_notify_telegram('Стоимость ордера ниже минимальной! Покупка невозможна!')
+                send_notify_telegram('The order value is below the minimum! Purchase is not possible!')
                 return ''
             send_notify_telegram(f'[{ex.code}]' + ex.message)
             return ''
@@ -146,36 +146,36 @@ def check_asset_price(buy_price, stop_percent, sleep_time_sec, asset, currency, 
 
 def success_buy_message(asset, currency, cryptocurrency):
     data = get_history(asset)[-1]
-    return f"""<b>Покупка</b>
+    return f"""<b>Purchase</b>
     <code>
-    Актив: {data['symbol']}
-    Покупка: {data['commissionAsset']}
-    Купленный актив: {data['qty']} {data['commissionAsset']}
-    Проданный актив: {data['quoteQty']} {currency}
-    Цена на момент покупки: {data['price']} {currency}
-    Комиссия: {data['commission']} {cryptocurrency}
-    Время сделки: {data['time']}</code>
+    Active: {data['symbol']}
+    Purchase: {data['commissionAsset']}
+    Purchased asset: {data['qty']} {data['commissionAsset']}
+    Sold asset: {data['quoteQty']} {currency}
+    Price at the time of purchase: {data['price']} {currency}
+    Commission: {data['commission']} {cryptocurrency}
+    Trade time: {data['time']}</code>
     """
 
 
 def success_sell_message(asset, currency, cryptocurrency, is_fail=0):
     data = get_history(asset)[-1]
-    type_sell = 'Продажа' if not is_fail else 'Стоп-продажа'
+    type_sell = 'Sale' if not is_fail else 'Stop Sell'
     return f"""<b>{type_sell}</b>
     <code>
-    Актив: {data['symbol']}
-    Покупка: {data['commissionAsset']}
-    Купленный актив: {data['quoteQty']} {data['commissionAsset']}
-    Проданный актив: {data['qty']} {cryptocurrency}
-    Цена на момент продажи: {data['price']} {cryptocurrency}
-    Комиссия: {data['commission']} {currency}
-    Время сделки: {data['time']}
+    Active: {data['symbol']}
+    Purchase: {data['commissionAsset']}
+    Purchased asset: {data['quoteQty']} {data['commissionAsset']}
+    Sold asset: {data['qty']} {cryptocurrency}
+    Price at the time of purchase: {data['price']} {cryptocurrency}
+    Commission: {data['commission']} {currency}
+    Trade time: {data['time']}
     </code>
     
-    <b>Информация о балансе:</b>
+    <b>Balance information:</b>
     <code>
-    Баланс {currency}: {get_balance(currency)['free']}
-    Баланс {cryptocurrency}: {get_balance(cryptocurrency)['free']}
+    Balance {currency}: {get_balance(currency)['free']}
+    Balance {cryptocurrency}: {get_balance(cryptocurrency)['free']}
     </code>
     """
 
